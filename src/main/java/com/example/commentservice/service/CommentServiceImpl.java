@@ -17,7 +17,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Comment createComment(String postId, Comment comment) {
        comment.setPostId(postId);
-       comment.setComment(comment.getCommentId());
+       comment.setComment(comment.getComment());
        comment.setCommentedBy(comment.getCommentedBy());
        comment.setCreatedAt(LocalDateTime.now());
         return commentRepo.save(comment);
