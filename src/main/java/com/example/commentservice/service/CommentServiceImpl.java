@@ -1,6 +1,7 @@
 package com.example.commentservice.service;
 
 import com.example.commentservice.model.Comment;
+import com.example.commentservice.model.FeignClientRequest;
 import com.example.commentservice.repo.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,12 @@ public class CommentServiceImpl implements CommentService{
        comment.setCreatedAt(LocalDateTime.now());
         return commentRepo.save(comment);
 
+    }
+
+    @Override
+    public FeignClientRequest getCommentsByPostId(String postId) {
+        FeignClientRequest feignClientRequest=new FeignClientRequest();
+        feignClientRequest.setComments(commentRepo.findByPostId(postId));
+        return feignClientRequest;
     }
 }
