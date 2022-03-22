@@ -25,4 +25,9 @@ public class CommentController {
         return new ResponseEntity<FeignClientRequest>(commentService.getCommentsByPostId(postId), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/{postId}/comments/count")
+    public ResponseEntity<Integer> getCount(@PathVariable("postId") String postId) {
+        return new ResponseEntity<Integer>(commentService.getCount(postId), HttpStatus.ACCEPTED);
+    }
+
 }
