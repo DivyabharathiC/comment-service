@@ -1,6 +1,7 @@
 package com.example.commentservice.controller;
 
 import com.example.commentservice.model.Comment;
+import com.example.commentservice.model.FeignClientRequest;
 import com.example.commentservice.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,11 @@ public class CommentController {
     @PostMapping("/{postId}/comments")
     public ResponseEntity<Comment> createComment(@PathVariable("postId") String postId,@RequestBody Comment comment) {
         return  new ResponseEntity<Comment>(commentService.createComment(postId, comment), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<FeignClientRequest> getCommentsByPostId(@PathVariable("postId") String postId) {
+        return new ResponseEntity<FeignClientRequest>(commentService.getCommentsByPostId(postId), HttpStatus.ACCEPTED);
     }
 
 }

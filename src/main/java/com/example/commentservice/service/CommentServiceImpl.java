@@ -1,6 +1,7 @@
 package com.example.commentservice.service;
 
 import com.example.commentservice.model.Comment;
+import com.example.commentservice.model.FeignClientRequest;
 import com.example.commentservice.repo.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,17 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Comment createComment(String postId, Comment comment) {
        comment.setPostId(postId);
-       comment.setComment(comment.getCommentId());
+       comment.setComment(comment.getComment());
        comment.setCommentedBy(comment.getCommentedBy());
        comment.setCreatedAt(LocalDateTime.now());
         return commentRepo.save(comment);
 
+    }
+
+    @Override
+    public FeignClientRequest getCommentsByPostId(String postId) {
+        FeignClientRequest feignClientRequest=new FeignClientRequest();
+        feignClientRequest.setComments(commentRepo.findByPostId(postId));
+        return feignClientRequest;
     }
 }
