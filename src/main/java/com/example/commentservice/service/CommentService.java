@@ -11,4 +11,6 @@ public interface CommentService {
     Comment createComment(String postId, Comment comment);
 
     FeignClientRequest getCommentsByPostId(String postId);
+
+    Integer getCount(String postId);
 }

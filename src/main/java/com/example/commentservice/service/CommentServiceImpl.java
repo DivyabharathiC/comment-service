@@ -31,4 +31,10 @@ public class CommentServiceImpl implements CommentService{
         feignClientRequest.setComments(commentRepo.findByPostId(postId));
         return feignClientRequest;
     }
+
+    @Override
+    public Integer getCount(String postId) {
+            Integer count=this.commentRepo.findByPostId(postId).size();
+            return count;
+    }
 }
