@@ -13,4 +13,6 @@ public interface CommentService {
     FeignClientRequest getCommentsByPostId(String postId);
 
     Integer getCount(String postId);
+
+    String deletebyCommentId(String commentId);
 }
