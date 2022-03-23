@@ -44,4 +44,14 @@ public class CommentServiceImpl implements CommentService{
         return "Deleted CommentID from database for the commendId=" + commentId ;
     }
 
+    @Override
+    public Comment updateComment(Comment comment, String postId, String commentId) {
+
+        comment.setCommentId(commentId);
+        comment.setUpdatedAt(LocalDateTime.now());
+        comment.setCreatedAt(commentRepo.findById(commentId).get().getCreatedAt());
+        comment.setPostId(postId);
+        return commentRepo.save(comment);
+    }
+
 }

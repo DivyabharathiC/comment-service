@@ -15,4 +15,6 @@ public interface CommentService {
     Integer getCount(String postId);
 
     String deletebyCommentId(String commentId);
+
+    Comment updateComment(Comment comment, String postId, String commentId);
 }
