@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="/posts")
+@RequestMapping(path="/api/v1/posts")
 public class CommentController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class CommentController {
 
     @GetMapping("/{postId}/comments/count")
     public ResponseEntity<Integer> getCount(@PathVariable("postId") String postId) {
-        return new ResponseEntity<Integer>(commentService.getCount(postId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<Integer>(commentService.getCommentCount(postId), HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/{postId}/comments/{commentId}")

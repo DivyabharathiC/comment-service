@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Integer getCount(String postId) {
+    public Integer getCommentCount(String postId) {
             Integer count=this.commentRepo.findByPostId(postId).size();
             return count;
     }
