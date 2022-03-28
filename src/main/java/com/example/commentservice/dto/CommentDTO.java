@@ -1,27 +1,24 @@
-package com.example.commentservice.model;
+package com.example.commentservice.dto;
 
+import com.example.commentservice.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Comment")
-public class Comment {
+@Data
+public class CommentDTO {
 
     @Id
     private String commentId;
-    private String postId;
     private String comment;
-    private String commentedBy;
+    private User commentedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Integer likeCounts;
 
 }

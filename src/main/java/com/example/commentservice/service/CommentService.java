@@ -1,20 +1,22 @@
 package com.example.commentservice.service;
 
+import com.example.commentservice.dto.CommentDTO;
 import com.example.commentservice.model.Comment;
-import com.example.commentservice.model.FeignClientRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface CommentService {
 
 
-    Comment createComment(String postId, Comment comment);
+    CommentDTO createComment(String postId, Comment comment);
 
-    FeignClientRequest getCommentsByPostId(String postId);
+    List<CommentDTO> getCommentsByPostId(String postId);
 
     Integer getCommentCount(String postId);
 
-    String deletebyCommentId(String commentId);
+    String deleteByCommentId(String commentId);
 
-    Comment updateComment(Comment comment, String postId, String commentId);
+    CommentDTO updateComment(Comment comment, String postId, String commentId);
 }
