@@ -69,6 +69,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>docker-comment</finalName>
 	</build>
 
 </project>
