@@ -34,6 +34,12 @@ public class CommentController {
         return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByPostId(postId), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/{commentId}")
+    public ResponseEntity<List<CommentDTO>> getCommentsByCommentId(@PathVariable("postId") String postId, @PathVariable("commentId") String commentId) {
+        logger.info("Starting of getCommentsByCommentId request from Comment application");
+        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByCommentId(postId,commentId), HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/count")
     public ResponseEntity<Integer> getCount(@PathVariable("postId") String postId) {
         logger.info("Starting of getCount request from Comment application");

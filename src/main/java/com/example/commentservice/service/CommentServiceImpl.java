@@ -3,7 +3,9 @@ package com.example.commentservice.service;
 
 import com.example.commentservice.Feign.LikeFeignClient;
 import com.example.commentservice.Feign.UserFeignClient;
+import com.example.commentservice.constant.Constant;
 import com.example.commentservice.dto.CommentDTO;
+import com.example.commentservice.exception.CommentNotFoundException;
 import com.example.commentservice.model.Comment;
 import com.example.commentservice.model.User;
 import com.example.commentservice.repo.CommentRepo;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.commentservice.constant.Constant.CommentNotFound;
+import static com.example.commentservice.constant.Constant.DeletedSuccess;
 
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -43,9 +48,30 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<CommentDTO> getCommentsByPostId(String postId) {
-        List<Comment> comments = commentRepo.findAll();
+        List<Comment> comments = commentRepo.findByPostId(postId);
+        if (comments.isEmpty()){
+            throw  new CommentNotFoundException( CommentNotFound );
+        }
         List<CommentDTO> commentDTOS = new ArrayList<>();
 
+        for (Comment comment : comments) {
+            User user = userFeignClient.getUser(comment.getCommentedBy());
+            Integer likeCount = likeFeignClient.getCount(comment.getCommentId());
+
+            commentDTOS.add(new CommentDTO(comment.getCommentId(), comment.getComment(),
+                    user,
+                    comment.getCreatedAt(), comment.getUpdatedAt(),
+                    likeCount));
+        }
+        return commentDTOS;
+    }
+    @Override
+    public List<CommentDTO> getCommentsByCommentId(String postId, String commentId) {
+        List<Comment> comments = commentRepo.findByCommentId(commentId);
+        if (comments.isEmpty()){
+            throw  new CommentNotFoundException( CommentNotFound );
+        }
+        List<CommentDTO> commentDTOS = new ArrayList<>();
         for (Comment comment : comments) {
             User user = userFeignClient.getUser(comment.getCommentedBy());
             Integer likeCount = likeFeignClient.getCount(comment.getCommentId());
@@ -66,8 +92,13 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public String deleteByCommentId(String commentId) {
-       commentRepo.deleteById(commentId);
-        return "Deleted CommentID from database for the commendId=" + commentId ;
+        if(commentRepo.findById(commentId).isPresent()){
+            commentRepo.deleteById(commentId);
+            return DeletedSuccess;
+        }
+        else{
+            throw new CommentNotFoundException(CommentNotFound);
+        }
     }
 
     @Override
@@ -85,5 +116,7 @@ public class CommentServiceImpl implements CommentService{
 
         return commentDTO;
     }
+
+
 
 }
