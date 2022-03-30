@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService{
         for (Comment comment : comments) {
             User user = userFeignClient.getUser(comment.getCommentedBy());
             Integer likeCount = likeFeignClient.getCount(comment.getCommentId());
-//            System.out.println(likeCount);
+
             commentDTOS.add(new CommentDTO(comment.getCommentId(), comment.getComment(),
                     user,
                     comment.getCreatedAt(), comment.getUpdatedAt(),
