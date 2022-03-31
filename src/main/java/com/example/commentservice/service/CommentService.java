@@ -12,7 +12,7 @@ public interface CommentService {
 
     CommentDTO createComment(String postId, Comment comment);
 
-    List<CommentDTO> getCommentsByPostId(String postId);
+
 
     Integer getCommentCount(String postId);
 
@@ -21,4 +21,6 @@ public interface CommentService {
     CommentDTO updateComment(Comment comment, String postId, String commentId);
 
     List<CommentDTO> getCommentsByCommentId(String postId, String commentId);
+
+    List<CommentDTO> getCommentsByPostId(String postId, Integer page, Integer size);
 }

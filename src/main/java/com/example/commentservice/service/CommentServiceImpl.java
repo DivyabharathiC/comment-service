@@ -10,11 +10,15 @@ import com.example.commentservice.model.Comment;
 import com.example.commentservice.model.User;
 import com.example.commentservice.repo.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.commentservice.constant.Constant.CommentNotFound;
 import static com.example.commentservice.constant.Constant.DeletedSuccess;
@@ -47,8 +51,11 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<CommentDTO> getCommentsByPostId(String postId) {
-        List<Comment> comments = commentRepo.findByPostId(postId);
+    public List<CommentDTO> getCommentsByPostId(String postId, Integer page, Integer size) {
+        page = Optional.ofNullable(page).orElse(0);
+        size = Optional.ofNullable(size).orElse(10);
+        Pageable paging = PageRequest.of(page, size);
+        Page<Comment> comments = commentRepo.findByPostId(postId,paging);
         if (comments.isEmpty()){
             throw  new CommentNotFoundException( CommentNotFound );
         }

@@ -29,9 +29,11 @@ public class CommentController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<CommentDTO>> getCommentsByPostId(@PathVariable("postId") String postId) {
+    public ResponseEntity<List<CommentDTO>> getCommentsByPostId(@PathVariable("postId") String postId,
+                                                                @RequestParam(value = "page", required = false) Integer page,
+                                                                @RequestParam(value = "size", required = false) Integer size) {
         logger.info("Starting of getCommentsByPostId request from Comment application");
-        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByPostId(postId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByPostId(postId, page, size), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{commentId}")
