@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping("")
-    public ResponseEntity<CommentDTO> createComment(@PathVariable("postId") String postId,@RequestBody Comment comment) {
+    public ResponseEntity<CommentDTO> createComment(@PathVariable("postId") String postId,@RequestBody @Valid Comment comment) {
         logger.info("Starting of createComment request from Comment application");
         return  new ResponseEntity<CommentDTO>(commentService.createComment(postId, comment), HttpStatus.CREATED);
     }
