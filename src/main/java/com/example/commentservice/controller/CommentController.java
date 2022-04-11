@@ -34,32 +34,32 @@ public class CommentController {
                                                                 @RequestParam(value = "page", required = false) Integer page,
                                                                 @RequestParam(value = "size", required = false) Integer size) {
         logger.info("Starting of getCommentsByPostId request from Comment application");
-        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByPostId(postId, page, size), HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByPostId(postId, page, size), HttpStatus.OK);
     }
 
     @GetMapping("/{commentId}")
     public ResponseEntity<List<CommentDTO>> getCommentsByCommentId(@PathVariable("postId") String postId, @PathVariable("commentId") String commentId) {
         logger.info("Starting of getCommentsByCommentId request from Comment application");
-        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByCommentId(postId,commentId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByCommentId(postId,commentId), HttpStatus.OK);
     }
 
     @GetMapping("/count")
     public ResponseEntity<Integer> getCount(@PathVariable("postId") String postId) {
         logger.info("Starting of getCount request from Comment application");
-        return new ResponseEntity<Integer>(commentService.getCommentCount(postId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<Integer>(commentService.getCommentCount(postId), HttpStatus.OK);
     }
 
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentDTO> updateComment(@RequestBody Comment comment, @PathVariable("postId") String postId, @PathVariable("commentId") String commentId) {
         logger.info("Starting of updateComment request from Comment application");
-        return new ResponseEntity<CommentDTO >(commentService.updateComment(comment, postId, commentId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<CommentDTO >(commentService.updateComment(comment, postId, commentId), HttpStatus.OK);
     }
 
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteByCommentId(@PathVariable("postId") String postId,@PathVariable("commentId") String commentId) {
         logger.info("Starting of deleteByCommentId request from Comment application");
-        return new ResponseEntity<String>(commentService.deleteByCommentId(commentId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(commentService.deleteByCommentId(commentId), HttpStatus.OK);
     }
 
 }

@@ -3,7 +3,6 @@ package com.example.commentservice.service;
 
 import com.example.commentservice.Feign.LikeFeignClient;
 import com.example.commentservice.Feign.UserFeignClient;
-import com.example.commentservice.constant.Constant;
 import com.example.commentservice.dto.CommentDTO;
 import com.example.commentservice.exception.CommentNotFoundException;
 import com.example.commentservice.model.Comment;
@@ -30,9 +29,9 @@ public class CommentServiceImpl implements CommentService{
     CommentRepo commentRepo;
 
     @Autowired
-    private UserFeignClient userFeignClient;
+     UserFeignClient userFeignClient;
     @Autowired
-    private LikeFeignClient likeFeignClient;
+     LikeFeignClient likeFeignClient;
 
     @Override
     public CommentDTO createComment(String postId, Comment comment) {
