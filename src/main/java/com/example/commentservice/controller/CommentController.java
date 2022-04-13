@@ -17,19 +17,19 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin(value ="*")
-@RequestMapping(path="/api/v1/posts/{postId}/comments")
+@RequestMapping(path="/api/v1/post")
 public class CommentController {
     private static Logger logger = LoggerFactory.getLogger(CommentController.class);
     @Autowired
     CommentService commentService;
 
-    @PostMapping("")
+    @PostMapping("/{postId}/comments")
     public ResponseEntity<CommentDTO> createComment(@PathVariable("postId") String postId,@RequestBody @Valid Comment comment) {
         logger.info("Starting of createComment request from Comment application");
         return  new ResponseEntity<CommentDTO>(commentService.createComment(postId, comment), HttpStatus.CREATED);
     }
 
-    @GetMapping("")
+    @GetMapping("/{postId}/comments")
     public ResponseEntity<List<CommentDTO>> getCommentsByPostId(@PathVariable("postId") String postId,
                                                                 @RequestParam(value = "page", required = false) Integer page,
                                                                 @RequestParam(value = "size", required = false) Integer size) {
@@ -37,7 +37,7 @@ public class CommentController {
         return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByPostId(postId, page, size), HttpStatus.OK);
     }
 
-    @GetMapping("/{commentId}")
+    @GetMapping("/{postId}/comments/{commentId}")
     public ResponseEntity<List<CommentDTO>> getCommentsByCommentId(@PathVariable("postId") String postId, @PathVariable("commentId") String commentId) {
         logger.info("Starting of getCommentsByCommentId request from Comment application");
         return new ResponseEntity<List<CommentDTO>>(commentService.getCommentsByCommentId(postId,commentId), HttpStatus.OK);

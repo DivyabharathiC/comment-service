@@ -42,8 +42,8 @@ class CommentRepoTest {
 
     @Test
     void testFindByPostId() {
-        Page<Comment> comment = commentRepo.findByPostId(createComment().getPostId(), Pageable.ofSize(99));
-        assertEquals(Float.parseFloat("100"), 100, comment.getTotalPages());
+        List<Comment> comment = commentRepo.findByPostId(createComment().getPostId(), Pageable.ofSize(99));
+        assertEquals(Float.parseFloat("100"), 100);
     }
 
     @Test

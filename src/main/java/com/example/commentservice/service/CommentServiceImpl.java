@@ -54,7 +54,7 @@ public class CommentServiceImpl implements CommentService{
         page = Optional.ofNullable(page).orElse(0);
         size = Optional.ofNullable(size).orElse(10);
         Pageable paging = PageRequest.of(page, size);
-        Page<Comment> comments = commentRepo.findByPostId(postId,paging);
+        List<Comment> comments = commentRepo.findByPostId(postId,paging);
         if (comments.isEmpty()){
             throw  new CommentNotFoundException( CommentNotFound );
         }

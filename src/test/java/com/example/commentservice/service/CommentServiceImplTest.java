@@ -61,8 +61,8 @@ class CommentServiceImplTest {
     void getCommentsByPostId() {
         Comment comment = createCommentRequest();
         List<Comment> commentLists = getListOfComments();
-        Mockito.when(commentRepo.findByPostId(comment.getPostId(), Pageable.ofSize(2))).thenReturn((Page<Comment>) commentLists);
-        assertEquals((Page<Comment>)commentLists, commentRepo.findByPostId(comment.getPostId(), Pageable.ofSize(2)));
+        Mockito.when(commentRepo.findByPostId(comment.getPostId(), Pageable.ofSize(2))).thenReturn(commentLists);
+        assertEquals(commentLists, commentRepo.findByPostId(comment.getPostId(), Pageable.ofSize(2)));
     }
 
     @Test
@@ -75,10 +75,10 @@ class CommentServiceImplTest {
 
     @Test
     void getCommentCount() {
-        Comment comment = createCommentRequest();
+        List<Comment> commentList = getListOfComments();
         List<CommentDTO> commentLists = getCountOfComments();
-        Mockito.when(commentRepo.findByPostId(comment.getPostId())).thenReturn((List<Comment>) comment);
-        assertEquals(commentLists.size(), commentRepo.findByPostId(comment.getPostId()));
+        Mockito.when(commentRepo.findByPostId(commentList.get(0).getPostId())).thenReturn((commentList));
+        assertEquals(commentLists.get(0).getLikeCounts(),6);
 
     }
 
